@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrO x DarkChoco - Tarot Mystique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-purple: #1a0933;
+            --mystic-gold: #d4af37;
+            --soft-cream: #f5f1e8;
+            --dark-plum: #2d1b3d;
+            --ethereal-blue: #4a5d7c;
+            --midnight: #0d0618;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--midnight);
+            color: var(--soft-cream);
+            overflow-x: hidden;
+        }
+
+        /* Animation d'intro */
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, var(--dark-plum) 0%, var(--deep-purple) 50%, var(--midnight) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOutIntro 1s ease-in-out 4s forwards;
+        }
+
+        .intro-text {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--mystic-gold) 0%, #fff 50%, var(--mystic-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInScale 2s ease-out 0.5s forwards;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .intro-collab {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--soft-cream);
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 2s forwards;
+            letter-spacing: 0.3em;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--mystic-gold);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutIntro {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--midnight) 0%, var(--deep-purple) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M500 100 L550 450 L900 500 L550 550 L500 900 L450 550 L100 500 L450 450 Z" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="1"/></svg>') center/400px no-repeat;
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--mystic-gold) 0%, #fff 50%, var(--mystic-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--soft-cream);
+            font-style: italic;
+            opacity: 0.9;
+            letter-spacing: 0.2em;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--dark-plum);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav button {
+            font-family: 'Cinzel', serif;
+            background: transparent;
+            border: 2px solid var(--mystic-gold);
+            color: var(--mystic-gold);
+            padding: 0.8rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--mystic-gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+            z-index: -1;
+        }
+
+        nav button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        nav button:hover {
+            color: var(--midnight);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        nav button.active {
+            background: var(--mystic-gold);
+            color: var(--midnight);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            text-align: center;
+            color: var(--mystic-gold);
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Grid de cartes */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        /* Carte de Tarot */
+        .tarot-card {
+            background: linear-gradient(135deg, var(--dark-plum) 0%, var(--deep-purple) 100%);
+            border: 2px solid var(--mystic-gold);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            aspect-ratio: 2/3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .tarot-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--mystic-gold), transparent, var(--mystic-gold));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .tarot-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .tarot-card:hover::before {
+            opacity: 0.6;
+        }
+
+        .card-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mystic-gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .card-symbol {
+            font-size: 4rem;
+            margin: 1rem 0;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+
+        .card-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            text-align: center;
+            color: var(--soft-cream);
+            letter-spacing: 0.05em;
+            margin-top: auto;
+        }
+
+        .card-name-fr {
+            font-size: 1rem;
+            font-style: italic;
+            color: rgba(245, 241, 232, 0.7);
+            margin-top: 0.3rem;
+        }
+
+        .card-suit {
+            font-size: 0.9rem;
+            color: var(--mystic-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-top: 0.5rem;
+        }
+
+        /* Game Interface */
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .game-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
+        }
+
+        .game-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--mystic-gold);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .game-options {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .game-btn {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, var(--dark-plum) 0%, var(--deep-purple) 100%);
+            border: 2px solid var(--mystic-gold);
+            color: var(--soft-cream);
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+        }
+
+        .game-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-btn:hover::before {
+            left: 100%;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            border-color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 6, 24, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--dark-plum) 0%, var(--deep-purple) 100%);
+            border: 3px solid var(--mystic-gold);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--mystic-gold);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            color: var(--soft-cream);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(13, 6, 24, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--soft-cream);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--mystic-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            border: 2px solid var(--mystic-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-btn.primary {
+            background: var(--mystic-gold);
+            color: var(--midnight);
+        }
+
+        .modal-btn.primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            color: var(--mystic-gold);
+        }
+
+        .modal-btn.secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .lobby {
+            display: none;
+            padding: 2rem;
+        }
+
+        .lobby.active {
+            display: block;
+        }
+
+        .lobby-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lobby-code {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--mystic-gold);
+            letter-spacing: 0.3em;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(13, 6, 24, 0.5);
+            border: 2px solid var(--mystic-gold);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .players-list {
+            background: rgba(45, 27, 61, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(13, 6, 24, 0.3);
+            border-radius: 8px;
+            border-left: 4px solid var(--mystic-gold);
+        }
+
+        .player-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--soft-cream);
+        }
+
+        .player-status {
+            color: var(--mystic-gold);
+            font-style: italic;
+        }
+
+        .game-board {
+            display: none;
+            padding: 2rem;
+        }
+
+        .game-board.active {
+            display: block;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(45, 27, 61, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-family: 'Cinzel', serif;
+            color: var(--mystic-gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            color: var(--soft-cream);
+        }
+
+        .card-table {
+            background: rgba(13, 6, 24, 0.7);
+            border: 3px solid var(--mystic-gold);
+            border-radius: 20px;
+            padding: 3rem;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .played-cards {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .player-hand {
+            background: linear-gradient(135deg, var(--dark-plum) 0%, var(--deep-purple) 100%);
+            border: 2px solid var(--mystic-gold);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .hand-title {
+            font-family: 'Cinzel', serif;
+            color: var(--mystic-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .hand-cards {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hand-card {
+            background: linear-gradient(135deg, var(--dark-plum) 0%, var(--deep-purple) 100%);
+            border: 2px solid var(--mystic-gold);
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            width: 120px;
+            aspect-ratio: 2/3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .hand-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .hand-card.selected {
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            transform: translateY(-20px);
+        }
+
+        .hand-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--mystic-gold);
+            color: var(--midnight);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .firebase-note {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--mystic-gold);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .firebase-note h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--mystic-gold);
+            margin-bottom: 1rem;
+        }
+
+        .firebase-note p {
+            color: var(--soft-cream);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .firebase-note code {
+            background: rgba(13, 6, 24, 0.5);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--mystic-gold);
+            font-family: monospace;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--midnight);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--soft-cream);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .signature {
+            font-family: 'Cinzel', serif;
+            color: var(--mystic-gold);
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            letter-spacing: 0.15em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-text {
+                font-size: 3rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1.5rem;
+            }
+
+            nav button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .game-btn {
+                min-width: 200px;
+                padding: 1.2rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .hand-cards {
+                gap: 0.5rem;
+            }
+
+            .hand-card {
+                width: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animation d'introduction -->
+    <div id="intro">
+        <div class="stars"></div>
+        <div class="intro-text">FrO x DarkChoco</div>
+        <div class="intro-collab">TAROT MYSTIQUE</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>Le Tarot Mystique</h1>
+        <p class="subtitle">Les 78 Arcanes de la Destinée</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <button class="active" onclick="showSection('game')">Jouer</button>
+        <button onclick="showSection('arcanes-majeurs')">Arcanes Majeurs</button>
+        <button onclick="showSection('coupes')">Coupes</button>
+        <button onclick="showSection('epees')">Épées</button>
+        <button onclick="showSection('batons')">Bâtons</button>
+        <button onclick="showSection('deniers')">Deniers</button>
+    </nav>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Section de Jeu -->
+        <div id="game" class="section active">
+            <!-- Note Firebase -->
+            <div class="firebase-note">
+                <h3>🔥 Configuration Firebase Requise</h3>
+                <p>Pour activer le multijoueur en ligne, vous devez :</p>
+                <p>1. Créer un projet sur <a href="https://console.firebase.google.com" target="_blank" style="color: var(--mystic-gold);">Firebase Console</a> (gratuit)</p>
+                <p>2. Activer "Realtime Database" dans votre projet</p>
+                <p>3. Remplacer la configuration Firebase dans le code (lignes marquées <code>// VOTRE CONFIG ICI</code>)</p>
+                <p style="margin-top: 1rem; font-style: italic; opacity: 0.8;">Une fois configuré, vos amis pourront rejoindre depuis n'importe où ! 🌍</p>
+            </div>
+
+            <!-- Menu principal du jeu -->
+            <div class="game-container">
+                <div class="game-menu" id="gameMenu">
+                    <h2 class="game-title">Jouer au Tarot</h2>
+                    <div class="game-options">
+                        <button class="game-btn" onclick="createGame()">
+                            ✨ Créer une partie
+                        </button>
+                        <button class="game-btn" onclick="joinGame()">
+                            🎴 Rejoindre une partie
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Salon d'attente -->
+                <div class="lobby" id="lobby">
+                    <div class="lobby-header">
+                        <h2 class="section-title">Salon d'attente</h2>
+                        <p style="color: var(--soft-cream); margin-bottom: 1rem;">Code de la partie :</p>
+                        <div class="lobby-code" id="lobbyCode">XXXX</div>
+                        <p style="color: var(--mystic-gold); margin-top: 1rem; font-style: italic;">Partagez ce code avec vos amis</p>
+                    </div>
+
+                    <div class="players-list" id="playersList">
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--mystic-gold); margin-bottom: 1.5rem; text-align: center;">Joueurs (0/4)</h3>
+                    </div>
+
+                    <div style="text-align: center; display: flex; gap: 1rem; justify-content: center;">
+                        <button class="game-btn" onclick="startGameMatch()" id="startBtn" style="display: none;">
+                            🎮 Commencer la partie
+                        </button>
+                        <button class="game-btn" onclick="leaveLobby()" style="background: rgba(255, 0, 0, 0.2);">
+                            ❌ Quitter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plateau de jeu -->
+                <div class="game-board" id="gameBoard">
+                    <div class="game-info">
+                        <div class="info-item">
+                            <div class="info-label">Tour actuel</div>
+                            <div class="info-value" id="currentRound">1/18</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Joueur actif</div>
+                            <div class="info-value" id="currentPlayer">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Atout</div>
+                            <div class="info-value" id="trumpSuit">♦️</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Score</div>
+                            <div class="info-value" id="teamScore">0 - 0</div>
+                        </div>
+                    </div>
+
+                    <div class="card-table">
+                        <div class="played-cards" id="playedCards">
+                            <p style="color: var(--soft-cream); opacity: 0.5; font-style: italic;">En attente des cartes...</p>
+                        </div>
+                    </div>
+
+                    <div class="player-hand">
+                        <h3 class="hand-title">Votre main</h3>
+                        <div class="hand-cards" id="playerHand"></div>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="game-btn" onclick="playCard()" id="playCardBtn" style="display: none;">
+                                🎴 Jouer la carte
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arcanes Majeurs -->
+        <div id="arcanes-majeurs" class="section">
+            <h2 class="section-title">Les 22 Arcanes Majeurs</h2>
+            <div class="cards-grid" id="major-arcana"></div>
+        </div>
+
+        <!-- Coupes -->
+        <div id="coupes" class="section">
+            <h2 class="section-title">L'Arcane des Coupes</h2>
+            <div class="cards-grid" id="cups"></div>
+        </div>
+
+        <!-- Épées -->
+        <div id="epees" class="section">
+            <h2 class="section-title">L'Arcane des Épées</h2>
+            <div class="cards-grid" id="swords"></div>
+        </div>
+
+        <!-- Bâtons -->
+        <div id="batons" class="section">
+            <h2 class="section-title">L'Arcane des Bâtons</h2>
+            <div class="cards-grid" id="wands"></div>
+        </div>
+
+        <!-- Deniers -->
+        <div id="deniers" class="section">
+            <h2 class="section-title">L'Arcane des Deniers</h2>
+            <div class="cards-grid" id="pentacles"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Explorez les mystères de votre destinée à travers les arcanes du Tarot</p>
+        <p class="signature">FrO x DarkChoco © 2026</p>
+    </footer>
+
+    <!-- Modal Créer une partie -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Créer une partie</h3>
+            <div class="input-group">
+                <label for="playerName">Votre nom</label>
+                <input type="text" id="playerName" placeholder="Entrez votre nom" maxlength="20">
+            </div>
+            <div class="input-group">
+                <label for="maxPlayers">Nombre de joueurs</label>
+                <input type="number" id="maxPlayers" value="4" min="2" max="4">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="closeModal('createModal')">Annuler</button>
+                <button class="modal-btn primary" onclick="confirmCreateGame()">Créer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Rejoindre une partie -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Rejoindre une partie</h3>
+            <div class="input-group">
+                <label for="joinPlayerName">Votre nom</label>
+                <input type="text" id="joinPlayerName" placeholder="Entrez votre nom" maxlength="20">
+            </div>
+            <div class="input-group">
+                <label for="gameCode">Code de la partie</label>
+                <input type="text" id="gameCode" placeholder="XXXX" maxlength="4" style="text-transform: uppercase;">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="closeModal('joinModal')">Annuler</button>
+                <button class="modal-btn primary" onclick="confirmJoinGame()">Rejoindre</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (version 9 modulaire) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, set, get, onValue, remove, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        // ============================================
+        // CONFIGURATION FIREBASE - À REMPLACER !
+        // ============================================
+        // Allez sur https://console.firebase.google.com
+        // Créez un projet, activez Realtime Database
+        // Puis copiez votre configuration ici :
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyADumLTLzh7qh929gIHiUPymvSC6ViZtR0",
+            authDomain: "le-tarot-mystique.firebaseapp.com",
+            databaseURL: "https://le-tarot-mystique-default-rtdb.firebaseio.com/",
+            projectId: "le-tarot-mystique",
+            storageBucket: "le-tarot-mystique.firebasestorage.app",
+            messagingSenderId: "427794403560",
+            appId: "G-ZVSBFGH33W"
+        };
+
+        // Initialiser Firebase
+        let app, database;
+        try {
+            app = initializeApp(firebaseConfig);
+            database = getDatabase(app);
+            console.log("Firebase initialisé avec succès !");
+            window.firebaseDB = { ref, set, get, onValue, remove, update, database };
+        } catch (error) {
+            console.error("Erreur Firebase:", error);
+            alert("⚠️ Firebase n'est pas configuré. Veuillez configurer Firebase pour activer le multijoueur en ligne. Voir les instructions dans le code.");
+        }
+    </script>
+
+    <script>
+        // Créer les étoiles pour l'animation
+        const starsContainer = document.querySelector('.stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // État du jeu
+        let gameState = {
+            currentGame: null,
+            playerName: '',
+            playerId: null,
+            playerHand: [],
+            selectedCard: null
+        };
+
+        // Données des cartes (même structure que la version locale)
+        const majorArcana = [
+            { number: '0', name: 'Le Mat', nameFr: 'The Fool', symbol: '🌙' },
+            { number: 'I', name: 'Le Bateleur', nameFr: 'The Magician', symbol: '✨' },
+            { number: 'II', name: 'La Papesse', nameFr: 'The High Priestess', symbol: '📖' },
+            { number: 'III', name: "L'Impératrice", nameFr: 'The Empress', symbol: '👑' },
+            { number: 'IV', name: "L'Empereur", nameFr: 'The Emperor', symbol: '⚜️' },
+            { number: 'V', name: 'Le Pape', nameFr: 'The Hierophant', symbol: '🕊️' },
+            { number: 'VI', name: "L'Amoureux", nameFr: 'The Lovers', symbol: '💕' },
+            { number: 'VII', name: 'Le Chariot', nameFr: 'The Chariot', symbol: '🏛️' },
+            { number: 'VIII', name: 'La Justice', nameFr: 'Justice', symbol: '⚖️' },
+            { number: 'IX', name: "L'Ermite", nameFr: 'The Hermit', symbol: '🔮' },
+            { number: 'X', name: 'La Roue de Fortune', nameFr: 'Wheel of Fortune', symbol: '☸️' },
+            { number: 'XI', name: 'La Force', nameFr: 'Strength', symbol: '🦁' },
+            { number: 'XII', name: 'Le Pendu', nameFr: 'The Hanged Man', symbol: '⏳' },
+            { number: 'XIII', name: 'La Mort', nameFr: 'Death', symbol: '💀' },
+            { number: 'XIV', name: 'La Tempérance', nameFr: 'Temperance', symbol: '🌊' },
+            { number: 'XV', name: 'Le Diable', nameFr: 'The Devil', symbol: '👿' },
+            { number: 'XVI', name: 'La Maison Dieu', nameFr: 'The Tower', symbol: '⚡' },
+            { number: 'XVII', name: "L'Étoile", nameFr: 'The Star', symbol: '⭐' },
+            { number: 'XVIII', name: 'La Lune', nameFr: 'The Moon', symbol: '🌙' },
+            { number: 'XIX', name: 'Le Soleil', nameFr: 'The Sun', symbol: '☀️' },
+            { number: 'XX', name: 'Le Jugement', nameFr: 'Judgement', symbol: '🎺' },
+            { number: 'XXI', name: 'Le Monde', nameFr: 'The World', symbol: '🌍' }
+        ];
+
+        const minorArcana = {
+            cups: { suit: 'Coupes', symbol: '🏆', names: ['As', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Cavalier', 'Reine', 'Roi'] },
+            swords: { suit: 'Épées', symbol: '⚔️', names: ['As', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Cavalier', 'Reine', 'Roi'] },
+            wands: { suit: 'Bâtons', symbol: '🔥', names: ['As', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Cavalier', 'Reine', 'Roi'] },
+            pentacles: { suit: 'Deniers', symbol: '💰', names: ['As', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Cavalier', 'Reine', 'Roi'] }
+        };
+
+        // Créer une carte (pour l'affichage de collection)
+        function createCard(number, name, nameFr, symbol, suit = '') {
+            const card = document.createElement('div');
+            card.className = 'tarot-card';
+            card.innerHTML = `
+                <div class="card-number">${number}</div>
+                <div class="card-symbol">${symbol}</div>
+                <div class="card-name">
+                    ${name}
+                    ${nameFr ? `<div class="card-name-fr">${nameFr}</div>` : ''}
+                    ${suit ? `<div class="card-suit">${suit}</div>` : ''}
+                </div>
+            `;
+            return card;
+        }
+
+        // Générer les cartes de collection
+        const majorContainer = document.getElementById('major-arcana');
+        majorArcana.forEach(card => {
+            majorContainer.appendChild(createCard(card.number, card.name, card.nameFr, card.symbol));
+        });
+
+        Object.keys(minorArcana).forEach(key => {
+            const data = minorArcana[key];
+            const container = document.getElementById(key);
+            data.names.forEach((name, index) => {
+                container.appendChild(createCard(index + 1, `${name} de ${data.suit}`, '', data.symbol, data.suit));
+            });
+        });
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Effet de clic sur les cartes de collection (pas les cartes en main)
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.tarot-card') && !e.target.closest('.hand-card')) {
+                const card = e.target.closest('.tarot-card');
+                card.style.transform = 'rotateY(180deg)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 600);
+            }
+        });
+
+        // Message si Firebase n'est pas configuré
+        function checkFirebase() {
+            if (!window.firebaseDB) {
+                alert('⚠️ Firebase n\'est pas configuré. Le multijoueur en ligne nécessite Firebase. Veuillez suivre les instructions dans le code.');
+                return false;
+            }
+            return true;
+        }
+
+        // Fonctions du jeu
+        function generateGameCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        function generatePlayerId() {
+            return 'player_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function createGame() {
+            document.getElementById('createModal').classList.add('active');
+        }
+
+        function joinGame() {
+            document.getElementById('joinModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        async function confirmCreateGame() {
+            if (!checkFirebase()) return;
+
+            const playerName = document.getElementById('playerName').value.trim();
+            const maxPlayers = parseInt(document.getElementById('maxPlayers').value);
+
+            if (!playerName) {
+                alert('Veuillez entrer votre nom');
+                return;
+            }
+
+            const gameCode = generateGameCode();
+            const playerId = generatePlayerId();
+
+            const newGame = {
+                code: gameCode,
+                maxPlayers: maxPlayers,
+                players: [{
+                    id: playerId,
+                    name: playerName,
+                    isHost: true,
+                    ready: false
+                }],
+                status: 'waiting',
+                createdAt: Date.now()
+            };
+
+            try {
+                const { ref, set, database } = window.firebaseDB;
+                await set(ref(database, `games/${gameCode}`), newGame);
+                
+                gameState.currentGame = gameCode;
+                gameState.playerName = playerName;
+                gameState.playerId = playerId;
+
+                closeModal('createModal');
+                showLobby(gameCode);
+                listenToGameUpdates();
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la création de la partie');
+            }
+        }
+
+        async function confirmJoinGame() {
+            if (!checkFirebase()) return;
+
+            const playerName = document.getElementById('joinPlayerName').value.trim();
+            const gameCode = document.getElementById('gameCode').value.trim().toUpperCase();
+
+            if (!playerName || !gameCode) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+
+            try {
+                const { ref, get, update, database } = window.firebaseDB;
+                const snapshot = await get(ref(database, `games/${gameCode}`));
+                
+                if (!snapshot.exists()) {
+                    alert('Partie introuvable');
+                    return;
+                }
+
+                const game = snapshot.val();
+
+                if (game.players.length >= game.maxPlayers) {
+                    alert('La partie est complète');
+                    return;
+                }
+
+                if (game.status !== 'waiting') {
+                    alert('La partie a déjà commencé');
+                    return;
+                }
+
+                const playerId = generatePlayerId();
+                const updatedPlayers = [...game.players, {
+                    id: playerId,
+                    name: playerName,
+                    isHost: false,
+                    ready: false
+                }];
+
+                await update(ref(database, `games/${gameCode}`), {
+                    players: updatedPlayers
+                });
+
+                gameState.currentGame = gameCode;
+                gameState.playerName = playerName;
+                gameState.playerId = playerId;
+
+                closeModal('joinModal');
+                showLobby(gameCode);
+                listenToGameUpdates();
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la connexion à la partie');
+            }
+        }
+
+        function showLobby(gameCode) {
+            document.getElementById('gameMenu').style.display = 'none';
+            document.getElementById('lobby').classList.add('active');
+            document.getElementById('lobbyCode').textContent = gameCode;
+        }
+
+        function listenToGameUpdates() {
+            const { ref, onValue, database } = window.firebaseDB;
+            const gameRef = ref(database, `games/${gameState.currentGame}`);
+            
+            onValue(gameRef, (snapshot) => {
+                if (!snapshot.exists()) {
+                    alert('La partie n\'existe plus');
+                    leaveLobby();
+                    return;
+                }
+
+                const game = snapshot.val();
+                updateLobbyDisplay(game);
+
+                if (game.status === 'playing') {
+                    loadGameBoard(game);
+                }
+            });
+        }
+
+        function updateLobbyDisplay(game) {
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = `<h3 style="font-family: 'Cinzel', serif; color: var(--mystic-gold); margin-bottom: 1.5rem; text-align: center;">Joueurs (${game.players.length}/${game.maxPlayers})</h3>`;
+
+            game.players.forEach(player => {
+                const playerItem = document.createElement('div');
+                playerItem.className = 'player-item';
+                playerItem.innerHTML = `
+                    <span class="player-name">${player.name} ${player.isHost ? '👑' : ''}</span>
+                    <span class="player-status">${player.ready ? '✓ Prêt' : 'En attente'}</span>
+                `;
+                playersList.appendChild(playerItem);
+            });
+
+            const currentPlayer = game.players.find(p => p.id === gameState.playerId);
+            if (currentPlayer && currentPlayer.isHost) {
+                document.getElementById('startBtn').style.display = 'inline-block';
+            }
+        }
+
+        async function leaveLobby() {
+            if (!confirm('Voulez-vous vraiment quitter ?')) return;
+
+            try {
+                const { ref, get, update, remove, database } = window.firebaseDB;
+                const snapshot = await get(ref(database, `games/${gameState.currentGame}`));
+                
+                if (snapshot.exists()) {
+                    const game = snapshot.val();
+                    const updatedPlayers = game.players.filter(p => p.id !== gameState.playerId);
+                    
+                    if (updatedPlayers.length === 0) {
+                        await remove(ref(database, `games/${gameState.currentGame}`));
+                    } else {
+                        if (updatedPlayers[0]) updatedPlayers[0].isHost = true;
+                        await update(ref(database, `games/${gameState.currentGame}`), {
+                            players: updatedPlayers
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+
+            document.getElementById('lobby').classList.remove('active');
+            document.getElementById('gameMenu').style.display = 'block';
+            gameState.currentGame = null;
+        }
+
+        async function startGameMatch() {
+            const { ref, get, update, database } = window.firebaseDB;
+            const snapshot = await get(ref(database, `games/${gameState.currentGame}`));
+            const game = snapshot.val();
+
+            if (game.players.length < 2) {
+                alert('Il faut au moins 2 joueurs pour commencer');
+                return;
+            }
+
+            const deck = createFullDeck();
+            shuffleDeck(deck);
+
+            const cardsPerPlayer = Math.floor(deck.length / game.players.length);
+            const updatedPlayers = game.players.map((player, index) => ({
+                ...player,
+                hand: deck.slice(index * cardsPerPlayer, (index + 1) * cardsPerPlayer)
+            }));
+
+            await update(ref(database, `games/${gameState.currentGame}`), {
+                status: 'playing',
+                currentRound: 1,
+                currentPlayerIndex: 0,
+                playedCards: [],
+                scores: { team1: 0, team2: 0 },
+                players: updatedPlayers
+            });
+        }
+
+        function createFullDeck() {
+            const deck = [];
+            majorArcana.forEach(card => deck.push({ ...card, type: 'major' }));
+            Object.keys(minorArcana).forEach(key => {
+                const data = minorArcana[key];
+                data.names.forEach((name, index) => {
+                    deck.push({
+                        number: index + 1,
+                        name: `${name} de ${data.suit}`,
+                        symbol: data.symbol,
+                        suit: data.suit,
+                        type: 'minor'
+                    });
+                });
+            });
+            return deck;
+        }
+
+        function shuffleDeck(deck) {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function loadGameBoard(game) {
+            document.getElementById('lobby').classList.remove('active');
+            document.getElementById('gameBoard').classList.add('active');
+
+            const currentPlayer = game.players.find(p => p.id === gameState.playerId);
+            gameState.playerHand = currentPlayer.hand || [];
+
+            displayPlayerHand();
+            updateGameDisplay(game);
+        }
+
+        function displayPlayerHand() {
+            const handContainer = document.getElementById('playerHand');
+            handContainer.innerHTML = '';
+
+            if (gameState.playerHand.length === 0) {
+                handContainer.innerHTML = '<p style="color: var(--soft-cream); opacity: 0.5;">Plus de cartes</p>';
+                return;
+            }
+
+            gameState.playerHand.forEach((card, index) => {
+                const handCard = document.createElement('div');
+                handCard.className = 'hand-card';
+                handCard.onclick = () => selectCard(index);
+                handCard.innerHTML = `
+                    <div class="card-number" style="font-size: 1.5rem;">${card.number}</div>
+                    <div class="card-symbol" style="font-size: 2.5rem;">${card.symbol}</div>
+                    <div class="card-name" style="font-size: 0.8rem;">${card.name.split(' ')[0]}</div>
+                `;
+                handContainer.appendChild(handCard);
+            });
+        }
+
+        function selectCard(index) {
+            document.querySelectorAll('.hand-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const cards = document.querySelectorAll('.hand-card');
+            if (cards[index]) {
+                cards[index].classList.add('selected');
+                gameState.selectedCard = index;
+                document.getElementById('playCardBtn').style.display = 'inline-block';
+            }
+        }
+
+        async function playCard() {
+            if (gameState.selectedCard === null) {
+                alert('Veuillez sélectionner une carte');
+                return;
+            }
+
+            const { ref, get, update, database } = window.firebaseDB;
+            const snapshot = await get(ref(database, `games/${gameState.currentGame}`));
+            const game = snapshot.val();
+
+            const currentPlayer = game.players[game.currentPlayerIndex];
+            if (currentPlayer.id !== gameState.playerId) {
+                alert('Ce n\'est pas votre tour !');
+                return;
+            }
+
+            const playedCard = gameState.playerHand[gameState.selectedCard];
+            const playedCards = game.playedCards || [];
+            playedCards.push({
+                playerId: gameState.playerId,
+                playerName: gameState.playerName,
+                card: playedCard
+            });
+
+            const playerIndex = game.players.findIndex(p => p.id === gameState.playerId);
+            game.players[playerIndex].hand.splice(gameState.selectedCard, 1);
+            gameState.playerHand.splice(gameState.selectedCard, 1);
+
+            let updates = {
+                playedCards: playedCards,
+                players: game.players
+            };
+
+            if (playedCards.length === game.players.length) {
+                // Tous ont joué
+                const winner = determineWinner(playedCards);
+                const winnerIndex = game.players.findIndex(p => p.id === winner.playerId);
+                const points = calculatePoints(playedCards);
+                
+                const scores = game.scores;
+                if (winnerIndex % 2 === 0) {
+                    scores.team1 += points;
+                } else {
+                    scores.team2 += points;
+                }
+
+                updates = {
+                    ...updates,
+                    playedCards: [],
+                    currentRound: game.currentRound + 1,
+                    currentPlayerIndex: winnerIndex,
+                    scores: scores
+                };
+
+                if (game.currentRound >= 18 || game.players[0].hand.length === 0) {
+                    updates.status = 'finished';
+                }
+            } else {
+                updates.currentPlayerIndex = (game.currentPlayerIndex + 1) % game.players.length;
+            }
+
+            await update(ref(database, `games/${gameState.currentGame}`), updates);
+
+            gameState.selectedCard = null;
+            document.getElementById('playCardBtn').style.display = 'none';
+        }
+
+        function determineWinner(playedCards) {
+            let highestCard = playedCards[0];
+            let winner = playedCards[0];
+
+            for (let i = 1; i < playedCards.length; i++) {
+                const card = playedCards[i];
+                if (card.card.type === 'major' && highestCard.card.type !== 'major') {
+                    highestCard = card;
+                    winner = card;
+                } else if (card.card.type === 'major' && highestCard.card.type === 'major') {
+                    const cardNum = convertRomanToNumber(card.card.number);
+                    const highestNum = convertRomanToNumber(highestCard.card.number);
+                    if (cardNum > highestNum) {
+                        highestCard = card;
+                        winner = card;
+                    }
+                } else if (card.card.type === highestCard.card.type && card.card.suit === highestCard.card.suit) {
+                    if (card.card.number > highestCard.card.number) {
+                        highestCard = card;
+                        winner = card;
+                    }
+                }
+            }
+            return winner;
+        }
+
+        function convertRomanToNumber(roman) {
+            if (roman === '0') return 0;
+            const romanNumerals = {
+                'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+                'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10,
+                'XI': 11, 'XII': 12, 'XIII': 13, 'XIV': 14, 'XV': 15,
+                'XVI': 16, 'XVII': 17, 'XVIII': 18, 'XIX': 19, 'XX': 20, 'XXI': 21
+            };
+            return romanNumerals[roman] || 0;
+        }
+
+        function calculatePoints(playedCards) {
+            let points = 0;
+            playedCards.forEach(pc => {
+                const card = pc.card;
+                if (card.type === 'major') {
+                    const num = convertRomanToNumber(card.number);
+                    if (num === 0 || num === 1 || num === 21) {
+                        points += 5;
+                    } else {
+                        points += 2;
+                    }
+                } else {
+                    if (card.name.includes('Roi')) points += 5;
+                    else if (card.name.includes('Reine')) points += 4;
+                    else if (card.name.includes('Cavalier')) points += 3;
+                    else if (card.name.includes('Valet')) points += 2;
+                    else points += 1;
+                }
+            });
+            return points;
+        }
+
+        function updateGameDisplay(game) {
+            document.getElementById('currentRound').textContent = `${game.currentRound || 1}/18`;
+            document.getElementById('currentPlayer').textContent = game.players[game.currentPlayerIndex]?.name || '-';
+            document.getElementById('teamScore').textContent = `${game.scores?.team1 || 0} - ${game.scores?.team2 || 0}`;
+
+            const playedCardsContainer = document.getElementById('playedCards');
+            playedCardsContainer.innerHTML = '';
+
+            if (game.playedCards && game.playedCards.length > 0) {
+                game.playedCards.forEach(pc => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'hand-card';
+                    cardDiv.style.pointerEvents = 'none';
+                    cardDiv.innerHTML = `
+                        <div class="card-number" style="font-size: 1.5rem;">${pc.card.number}</div>
+                        <div class="card-symbol" style="font-size: 2.5rem;">${pc.card.symbol}</div>
+                        <div class="card-name" style="font-size: 0.8rem;">${pc.playerName}</div>
+                    `;
+                    playedCardsContainer.appendChild(cardDiv);
+                });
+            } else {
+                playedCardsContainer.innerHTML = '<p style="color: var(--soft-cream); opacity: 0.5; font-style: italic;">En attente des cartes...</p>';
+            }
+
+            const currentPlayer = game.players[game.currentPlayerIndex];
+            if (currentPlayer.id === gameState.playerId) {
+                document.querySelector('.hand-title').textContent = '🎯 À VOTRE TOUR - Votre main';
+                document.querySelector('.hand-title').style.color = 'var(--mystic-gold)';
+            } else {
+                document.querySelector('.hand-title').textContent = `En attente de ${currentPlayer.name}...`;
+                document.querySelector('.hand-title').style.color = 'var(--soft-cream)';
+            }
+
+            if (game.status === 'finished') {
+                const winner = game.scores.team1 > game.scores.team2 ? 'Équipe 1' : 'Équipe 2';
+                setTimeout(() => {
+                    alert(`🎉 Partie terminée !\n\nScore final:\nÉquipe 1: ${game.scores.team1}\nÉquipe 2: ${game.scores.team2}\n\nGagnant: ${winner} !`);
+                    document.getElementById('gameBoard').classList.remove('active');
+                    document.getElementById('gameMenu').style.display = 'block';
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
